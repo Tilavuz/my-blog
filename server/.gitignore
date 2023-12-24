@@ -1,24 +1,16 @@
-# Logs
-logs
+# Node.js Dependency Directories
+node_modules/
+
+# Node.js Environment
 *.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
-lerna-debug.log*
+*.pid
+*.lock
 
-node_modules
-dist
-dist-ssr
-*.local
+# VSCode
+.vscode/
 
-# Editor directories and files
-.vscode/*
-!.vscode/extensions.json
-.idea
+# Mac
 .DS_Store
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
+
+# npm
+npm-debug.log
