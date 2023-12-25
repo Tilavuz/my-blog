@@ -1,4 +1,5 @@
 const { Schema, model } = require('mongoose')
+const Joi = require('joi')
 
 const blogSchema = new Schema({
     title: {
@@ -19,4 +20,14 @@ const blogSchema = new Schema({
       }
 })
 
-module.exports = model('Blog', blogSchema)
+const blogValid = Joi.object({
+    title: Joi.string().required().max(50).min(5),
+    author: Joi.string().min(5).required().max(25),
+    desc: Joi.string().required().min(15)
+})
+
+
+const Blog = model('Blog', blogSchema)
+
+
+module.exports = { Blog, blogValid }
