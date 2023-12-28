@@ -1,20 +1,20 @@
 const router = require('express').Router()
-const { addBlog, getBlogs, deleteBlog, updateBlog } = require('../controllers/blogController')
-
+const { addBlog, getBlogs, deleteBlog, updateBlog, getBlogById } = require('../controllers/blogController')
+const upload = require('../middlewares/imageMiddleware')
 
 
 
 // New Blog add
-router.post('/blog', addBlog)
-
+router.post('/blog', upload.single('image'), addBlog)
 
 // Get blogs
-router.get('/blog', getBlogs)
+router.get('/blogs', getBlogs)
 
+// get blog by id
+router.get('/blog/:id', getBlogById)
 
 // Delete blog
 router.delete('/blog/:id', deleteBlog)
-
 
 // Update blog
 router.put('/blog/:id', updateBlog)
