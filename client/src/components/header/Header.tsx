@@ -2,7 +2,7 @@ import { NavLink } from "react-router-dom"
 
 function Header() {
   return (
-    <header className="w-full py-4 border-b-2 fixed bg-bgColor z-999">
+    <header className="w-full top-0 left-0 py-4 border-b-2 fixed bg-bgColor z-999">
         <div className="container mx-auto px-4">
           <div className="flex justify-between items-center">
             <a href="/" className="text-3xl font-bold text-black">Tilav</a>

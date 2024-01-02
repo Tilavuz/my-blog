@@ -1,8 +1,21 @@
+import { Suspense, lazy } from "react"
+
+// Components
+const MainBodyHead = lazy(() => import('../../components/mainBody/MainBodyHead'))
+const MainBodyCards = lazy(() => import('../../components/mainBody/MainBodyCards'))
+
+
 function Blogs() {
+
   return (
-    <div>
-        <h1>Blog page</h1>
-    </div>
+    <main className="py-28 flex flex-col gap-20">
+        <Suspense>
+          <MainBodyHead />
+        </Suspense>
+        <Suspense>
+          <MainBodyCards />
+        </Suspense>
+    </main>
   )
 }
 

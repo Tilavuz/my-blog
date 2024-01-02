@@ -6,6 +6,7 @@ export default {
   ],
   theme: {
     screens: {
+      'minism': '300px',
       'sm': '480px',
       'md': '768px',
       'lg': '976px',
@@ -26,12 +27,14 @@ export default {
         transparent: 'transparent',
         current: 'currentColor',
         'bgColor': '#fff',
+        'bgColor2': '#F1F5F9',
         'textColor': '#0f172a',
-        'borderColor': '#1e293b'
+        'borderColor': '#1e293b',
+        'btnColor': '#0F172A'
       },
       width: {
         '6/13': '45%',
-      }
+      },
     }
   },
 }

@@ -19,7 +19,7 @@ function SingleBlog() {
     }, [])
 
   return (
-    <div className='flex flex-col gap-4 h-screen py-20 px-2 md:py-24 lg:container lg:mx-auto lg:py-32'>
+    <div className='flex flex-col gap-4 py-20 pb-24 px-2 lg:container lg:mx-auto lg:py-32'>
         {
           blog && (
             <>

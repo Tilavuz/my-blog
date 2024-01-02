@@ -14,7 +14,13 @@
   background-color: rgba(0, 0, 0, 0.03);
 }
 
+html, body {
+  overflow-x: hidden;
+}
+
 body {
   position: relative;
   min-height: 100vh;
+  background-color: white;
+  padding: 0 15px;
 }

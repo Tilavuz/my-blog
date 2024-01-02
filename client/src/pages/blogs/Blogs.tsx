@@ -9,7 +9,7 @@ function Blog() {
   const blogs = useMemo(() => datas, [datas]);
 
   return (
-    <div className="py-20 md:py-24 px-2 flex flex-col gap-4 lg:flex-row lg:py-32 lg:flex-wrap lg:container lg:mx-auto lg:justify-between">
+    <div className="bg-white py-20 md:py-24 px-2 flex flex-col gap-4 lg:flex-row lg:py-32 lg:flex-wrap lg:container lg:mx-auto lg:justify-between">
       {
         blogs?.map((blog, i) => {
           return (
