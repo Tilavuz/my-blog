@@ -73,17 +73,36 @@ const deleteBlog = async (req, res) => {
 // Update blog
 const updateBlog = async (req, res) => {
     try {
-        const blog = await Blog.findByIdAndUpdate(req.params.id, req.body, { new: true })
+        const result = blogValid.validate(req.body);
 
-        if(!blog) {
-            return res.status(404).json({ msg: "Malumotni yangilab bo'lmadi." })
+        if (result.error) {
+            return res.status(400).json({ error: result.error.details[0].message });
+        }
+
+        const reqData = { ...req.body };
+        console.log(reqData);
+
+        // Frontenddan rasm kelmasa, eski rasmni yangilamaymiz
+        if (!req.file) {
+            const existingBlog = await Blog.findById(req.params.id);
+            reqData.image = existingBlog.image;
+        } else {
+            reqData.image = req.file.filename;
+        }
+
+        const blog = await Blog.findByIdAndUpdate(req.params.id, reqData, { new: true });
+
+        if (!blog) {
+            return res.status(404).json({ msg: "Malumotni yangilab bo'lmadi." });
         }
 
         res.status(200).json(blog);
-    }catch (err) {
+    } catch (err) {
+        console.error(err);
         res.status(500).json({ msg: "Xatolik mavjut !" });
     }
-}
+};
+
 
 
 module.exports = { addBlog, getBlogs, deleteBlog, updateBlog, getBlogById }

@@ -3,6 +3,7 @@ import { Suspense, lazy } from "react"
 // Components
 const MainBodyHead = lazy(() => import('../../components/mainBody/MainBodyHead'))
 const MainBodyCards = lazy(() => import('../../components/mainBody/MainBodyCards'))
+const MainBodyContactLink = lazy(() => import('../../components/mainBody/MainBodyContactLink'))
 
 
 function Blogs() {
@@ -14,6 +15,9 @@ function Blogs() {
         </Suspense>
         <Suspense>
           <MainBodyCards />
+        </Suspense>
+        <Suspense>
+          <MainBodyContactLink />
         </Suspense>
     </main>
   )

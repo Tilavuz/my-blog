@@ -1,4 +1,5 @@
 const router = require('express').Router()
+const { adminMiddleware } = require('../middlewares/adminMiddleware')
 const { addBlog, getBlogs, deleteBlog, updateBlog, getBlogById } = require('../controllers/blogController')
 const upload = require('../middlewares/imageMiddleware')
 
@@ -17,6 +18,6 @@ router.get('/blog/:id', getBlogById)
 router.delete('/blog/:id', deleteBlog)
 
 // Update blog
-router.put('/blog/:id', updateBlog)
+router.put('/blog/:id', upload.single('image'), updateBlog)
 
 module.exports = router

@@ -1,5 +1,4 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import RootLayout from './layouts/RootLayout';
 import { lazy, Suspense } from "react";
 
 // Pages
@@ -7,6 +6,16 @@ const Blogs = lazy(() => import("./pages/blogs/Blogs"));
 const Home = lazy(() => import('./pages/home/Home')) 
 const Contact = lazy(() => import("./pages/contact/Contact"));
 const SingleBlog = lazy(() => import("./pages/singleBlog/SingleBlog"));
+const Login = lazy(() => import('./pages/login/Login'))
+
+// Layouts
+import RootLayout from './layouts/RootLayout';
+const AdminLayout = lazy(() => import('./layouts/AdminLayout'))
+
+// Admin pages
+const AdminEditDelete = lazy(() => import('./pages/admin/AdminEditDelete'))
+const BlogEditDelete = lazy(() => import('./pages/admin/BlogEditDelete'))
+
 
 function App() {
 
@@ -55,6 +64,32 @@ function App() {
               <Contact />
             </Suspense>
           )
+        },
+        {
+          path: '/login',
+          element: (
+            <Suspense>
+              <Login />
+            </Suspense>
+          )
+        },
+        {
+          path: '/admin',
+          element: (
+            <Suspense>
+              <AdminLayout />
+            </Suspense>
+          ),
+          children: [
+            {
+              path: 'admin-edit',
+              element: <AdminEditDelete />
+            },
+            {
+              path: 'admin-blogs',
+              element: <BlogEditDelete />
+            }
+          ]
         }
       ]
     }

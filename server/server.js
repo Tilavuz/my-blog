@@ -8,10 +8,13 @@ app.use(express.json())
 app.use(cors())
 app.use(express.static('uploads'))
 
-// Routes
+// Blog Router
 const blogRouter = require('./routes/blogRouter')
 app.use('/api', blogRouter)
 
+// Admin Router
+const adminRouter = require('./routes/adminRouter')
+app.use('/api', adminRouter)
 
 
 
