@@ -80,7 +80,6 @@ const updateBlog = async (req, res) => {
         }
 
         const reqData = { ...req.body };
-        console.log(reqData);
 
         // Frontenddan rasm kelmasa, eski rasmni yangilamaymiz
         if (!req.file) {

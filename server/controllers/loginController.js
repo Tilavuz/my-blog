@@ -6,7 +6,7 @@ const jwt = require('jsonwebtoken')
 // Jwt token generate
 const generateJwtToken = (id) => {
     console.log(id);
-    const token = jwt.sign({id}, '72tilavuz51', {expiresIn: '2d'})
+    const token = jwt.sign({id}, process.env.JWTKEY, {expiresIn: '2d'})
     return token
 }
 
@@ -27,15 +27,11 @@ const loginAdmin = async (req, res) => {
             return
         }
 
-        const token = jwt.sign({_id: login._id, name: login.name}, '72tilavuz51')
+        const token = jwt.sign({_id: login._id, name: login.name}, process.env.JWTKEY)
 
-        console.log(token);
-
-        res.header('x-login-token', token).json({message: 'Malumot To\'g\'ri', type: true }).status(200)
-        console.log(res);
-
+        res.header('x-login-token', token).json({message: 'Malumot To\'g\'ri', type: true, token }).status(200)
     }catch (err) {
-        console.log(err);
+        console.error(err);
     }
 }
 
@@ -60,8 +56,6 @@ const postAdmin = async (req, res) => {
 
 // Get admins
 const getAdmin = async (req, res) => {
-    console.log('worked');
-    console.log(req);
     try {
         const admins = await Admin.find().sort({ createdAt: -1 });
 

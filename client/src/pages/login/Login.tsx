@@ -26,7 +26,9 @@ function Login() {
 
     try{
       setLoading(true)
-      await axios.post('http://localhost:3000/api/login', loginData)
+      const res = await axios.post('http://localhost:3000/api/login', loginData)
+      const token = await res.data
+      localStorage.setItem('token', token.token)
       window.location = '/admin'
     }catch (err) {
       console.log(err);

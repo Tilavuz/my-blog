@@ -21,10 +21,14 @@ function AdminEditDelete() {
 
   useEffect(() => {
       try {
-          axios.get('http://localhost:3000/api/admin/admins')
-              .then(res => {
-                  setAdmins(res.data)
-              })
+          axios.get('http://localhost:3000/api/admin/admins', {
+            headers: {
+              'x-login-token': localStorage.getItem('token')
+            }
+          })
+          .then(res => {
+              setAdmins(res.data)
+          })
       }catch(err) {
           console.error(err);
       }
@@ -34,7 +38,11 @@ function AdminEditDelete() {
     const promptValue = confirm('Rostan ham bu post-ni o\'chirmoqchimisiz?')
     if(!promptValue) return
     try{
-      await axios.delete(`http://localhost:3000/api/admin/${id}`)
+      await axios.delete(`http://localhost:3000/api/admin/${id}`, {
+        headers: {
+          'x-login-token': localStorage.getItem('token')
+        }
+      })
     }catch(err) {
       console.log(err);
     }
@@ -42,7 +50,11 @@ function AdminEditDelete() {
 
   async function editAdmin() {
     try{
-      await axios.put(`http://localhost:3000/api/admin/${editAdminData.id}`, editAdminData)
+      await axios.put(`http://localhost:3000/api/admin/${editAdminData.id}`, editAdminData, {
+        headers: {
+          'x-login-token': localStorage.getItem('token')
+        }
+      })
       setEdit(false)
     }catch(err) {
       console.log(err);
@@ -51,7 +63,11 @@ function AdminEditDelete() {
 
   async function addAdmin() {
     try {
-      axios.post('http://localhost:3000/api/admin/add', addAdminData)
+      axios.post('http://localhost:3000/api/admin/add', addAdminData, {
+        headers: {
+          'x-login-token': localStorage.getItem('token')
+        }
+      })
       setIsAddAdmin(false)
     }catch(err) {
       console.error(err);

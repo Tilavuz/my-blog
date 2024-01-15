@@ -2,7 +2,9 @@ const express = require('express')
 const cors = require('cors')
 const app = express()
 require('./config/db')()
+require('dotenv').config();
 
+const port = process.env.PORT || 3000
 
 app.use(express.json())
 app.use(cors())
@@ -18,6 +20,6 @@ app.use('/api', adminRouter)
 
 
 
-app.listen('3000', () => {
-    console.log('server 3000 - portda ishga tushdi');
+app.listen(port, () => {
+    console.log(`server ${port} - portda ishga tushdi`);
 })

@@ -30,7 +30,11 @@ function BlogEditDelete() {
         const promptValue = confirm('Rostan ham bu post-ni o\'chirmoqchimisiz?')
         if(!promptValue) return
         try {
-            await axios.delete(`http://localhost:3000/api/blog/${id}`)
+            await axios.delete(`http://localhost:3000/api/blog/${id}`, {
+              headers: {
+                'x-login-token': localStorage.getItem('token')
+              }
+            })
         }catch(err) {
             console.error(err);
         }
@@ -52,7 +56,11 @@ function BlogEditDelete() {
             formData.append('author', editBlogData.author);
             formData.append('desc', editBlogData.desc);
     
-            await axios.put(`http://localhost:3000/api/blog/${id}`, formData);
+            await axios.put(`http://localhost:3000/api/blog/${id}`, formData, {
+              headers: {
+                'x-login-token': localStorage.getItem('token')
+              }
+            });
     
             setIsEdit(false);
         } catch (err) {
@@ -82,18 +90,23 @@ function BlogEditDelete() {
     async function addBlog() {
       try {
         let formData;
-            if (addBlogData.image instanceof File) {
-                formData = new FormData();
-                formData.append('image', addBlogData.image);
-            } else {
-                formData = new URLSearchParams();
-                formData.append('image', addBlogData.image);
-            }
-    
-            formData.append('title', addBlogData.title);
-            formData.append('author', addBlogData.author);
-            formData.append('desc', addBlogData.desc);
-        await axios.post('http://localhost:3000/api/blog', formData)
+        if (addBlogData.image instanceof File) {
+            formData = new FormData();
+            formData.append('image', addBlogData.image);
+        } else {
+            formData = new URLSearchParams();
+            formData.append('image', addBlogData.image);
+        }
+
+        formData.append('title', addBlogData.title);
+        formData.append('author', addBlogData.author);
+        formData.append('desc', addBlogData.desc);
+
+        await axios.post('http://localhost:3000/api/blog', formData, {
+          headers: {
+            'x-login-token': localStorage.getItem('token')
+          }
+        })
 
       }catch(err) {
         console.error(err);

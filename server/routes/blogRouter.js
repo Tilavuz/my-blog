@@ -6,7 +6,7 @@ const upload = require('../middlewares/imageMiddleware')
 
 
 // New Blog add
-router.post('/blog', upload.single('image'), addBlog)
+router.post('/blog', upload.single('image'), adminMiddleware, addBlog)
 
 // Get blogs
 router.get('/blogs', getBlogs)
@@ -15,9 +15,9 @@ router.get('/blogs', getBlogs)
 router.get('/blog/:id', getBlogById)
 
 // Delete blog
-router.delete('/blog/:id', deleteBlog)
+router.delete('/blog/:id', adminMiddleware, deleteBlog)
 
 // Update blog
-router.put('/blog/:id', upload.single('image'), updateBlog)
+router.put('/blog/:id', upload.single('image'), adminMiddleware, updateBlog)
 
 module.exports = router

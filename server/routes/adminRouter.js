@@ -9,16 +9,16 @@ router.post('/login', loginAdmin)
 
 
 // Add admin
-router.post('/admin/add', postAdmin)
+router.post('/admin/add', adminMiddleware, postAdmin)
 
 // Get admins
-router.get('/admin/admins', getAdmin)
+router.get('/admin/admins', adminMiddleware, getAdmin)
 
 // Delete admin
-router.delete('/admin/:id', deleteAdmin)
+router.delete('/admin/:id', adminMiddleware, deleteAdmin)
 
 // Put admin
-router.put('/admin/:id', putAdmin)
+router.put('/admin/:id', adminMiddleware, putAdmin)
 
 
 module.exports = router

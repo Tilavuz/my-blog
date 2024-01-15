@@ -1,6 +1,9 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { lazy, Suspense } from "react";
 
+import dotenv from 'dotenv'
+dotenv.config()
+
 // Pages
 const Blogs = lazy(() => import("./pages/blogs/Blogs"));
 const Home = lazy(() => import('./pages/home/Home')) 
