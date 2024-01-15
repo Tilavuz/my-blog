@@ -2,7 +2,6 @@ import axios from "axios"
 import { useEffect, useState } from "react"
 
 // Components
-
 function AdminEditDelete() {
 
   const [admins, setAdmins] = useState(null)
@@ -21,7 +20,7 @@ function AdminEditDelete() {
 
   useEffect(() => {
       try {
-          axios.get('http://localhost:3000/api/admin/admins', {
+          axios.get('https://tilav-blog-api.onrender.com/api/admin/admins', {
             headers: {
               'x-login-token': localStorage.getItem('token')
             }
@@ -38,7 +37,7 @@ function AdminEditDelete() {
     const promptValue = confirm('Rostan ham bu post-ni o\'chirmoqchimisiz?')
     if(!promptValue) return
     try{
-      await axios.delete(`http://localhost:3000/api/admin/${id}`, {
+      await axios.delete(`https://tilav-blog-api.onrender.com/api/admin/${id}`, {
         headers: {
           'x-login-token': localStorage.getItem('token')
         }
@@ -50,7 +49,7 @@ function AdminEditDelete() {
 
   async function editAdmin() {
     try{
-      await axios.put(`http://localhost:3000/api/admin/${editAdminData.id}`, editAdminData, {
+      await axios.put(`https://tilav-blog-api.onrender.com/api/admin/${editAdminData.id}`, editAdminData, {
         headers: {
           'x-login-token': localStorage.getItem('token')
         }
@@ -63,7 +62,7 @@ function AdminEditDelete() {
 
   async function addAdmin() {
     try {
-      axios.post('http://localhost:3000/api/admin/add', addAdminData, {
+      axios.post('https://tilav-blog-api.onrender.com/api/admin/add', addAdminData, {
         headers: {
           'x-login-token': localStorage.getItem('token')
         }

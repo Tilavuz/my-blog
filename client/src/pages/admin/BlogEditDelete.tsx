@@ -22,15 +22,21 @@ function BlogEditDelete() {
       image: ''
   })
 
+  // 
 
-    const blogs = useGetBlogs('http://localhost:3000/api/blogs')
+//   13.228.225.19
+// 18.142.128.26
+// 54.254.162.138
+
+
+    const blogs = useGetBlogs('https://tilav-blog-api.onrender.com/api/blogs')
 
     // Delete blog function
     async function deleteBlog(id) {
         const promptValue = confirm('Rostan ham bu post-ni o\'chirmoqchimisiz?')
         if(!promptValue) return
         try {
-            await axios.delete(`http://localhost:3000/api/blog/${id}`, {
+            await axios.delete(`https://tilav-blog-api.onrender.com/api/blog/${id}`, {
               headers: {
                 'x-login-token': localStorage.getItem('token')
               }
@@ -56,7 +62,7 @@ function BlogEditDelete() {
             formData.append('author', editBlogData.author);
             formData.append('desc', editBlogData.desc);
     
-            await axios.put(`http://localhost:3000/api/blog/${id}`, formData, {
+            await axios.put(`https://tilav-blog-api.onrender.com/api/blog/${id}`, formData, {
               headers: {
                 'x-login-token': localStorage.getItem('token')
               }
@@ -102,7 +108,7 @@ function BlogEditDelete() {
         formData.append('author', addBlogData.author);
         formData.append('desc', addBlogData.desc);
 
-        await axios.post('http://localhost:3000/api/blog', formData, {
+        await axios.post('https://tilav-blog-api.onrender.com/api/blog', formData, {
           headers: {
             'x-login-token': localStorage.getItem('token')
           }
@@ -119,7 +125,7 @@ function BlogEditDelete() {
         blogs?.map((blog, i) => {
           return (
             <div className={`cursor-pointer border-b-2 flex flex-col pb-2 ${i === 0 ? 'gap-2 mb-4' : 'gap-4 lg:w-6/13'} ${(blogs.length % 2 === 0  && blogs.length === i + 1) ? 'lg:w-screen' : ''}`} key={i}>
-              <img className={`${i === 0 ? 'w-full md:w-96 lg:block' : 'w-40 lg:w-56 lg:h-auto'} rounded-lg ${blogs.length % 2 === 0 && blogs.length === i + 1 ? 'lg:w-96' : ''}`} src={`http://localhost:3000/${blog.image}`} alt={blog.title} />
+              <img className={`${i === 0 ? 'w-full md:w-96 lg:block' : 'w-40 lg:w-56 lg:h-auto'} rounded-lg ${blogs.length % 2 === 0 && blogs.length === i + 1 ? 'lg:w-96' : ''}`} src={`https://tilav-blog-api.onrender.com/${blog.image}`} alt={blog.title} />
               <div>
                 <p className="line-clamp-1 font-bold text-xl">{blog.title}</p>
                 <p className={`${i === 0 ? 'line-clamp-2 md:line-clamp-4 md:text-xl' : 'line-clamp-2'}`}>{blog.desc}</p>
