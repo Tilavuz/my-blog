@@ -9,7 +9,7 @@ function SingleBlog() {
     const [blog, setBlog] = useState(null)
 
     useEffect(() => {
-        axios.get(`http://localhost:3000/api/blog/${id}`)
+        axios.get(`https://tilav-blog-api.onrender.com/api/blog/${id}`)
             .then(res => {
                 setBlog(res.data)
             })
@@ -27,7 +27,7 @@ function SingleBlog() {
                 <p className='font-bold text-xl lg:text-2xl'>Author: <span className='font-thin capitalize'>{blog.author}</span></p>
                 <p className='font-bold text-xl lg:text-2xl'>Tittle: <span className='font-thin'>{blog.title}</span></p>
               </div>
-              <img className='sm:w-96 md:w-1/2 xl:w-5/12 rounded-lg' src={`http://localhost:3000/${blog.image}`} alt={blog.title} />
+              <img className='sm:w-96 md:w-1/2 xl:w-5/12 rounded-lg' src={`https://tilav-blog-api.onrender.com/${blog.image}`} alt={blog.title} />
               <p className='lg:text-xl'>{blog.desc}</p>
             </>
           )

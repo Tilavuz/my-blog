@@ -1,9 +1,9 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
 
-function useGetBlogs(url) {
+function useGetBlogs(url: string) {
 
-    const [blogs, setBlogs] = useState(null)
+    const [blogs, setBlogs] = useState(Array)
 
     useEffect(() => {
         try {

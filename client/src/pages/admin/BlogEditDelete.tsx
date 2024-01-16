@@ -1,6 +1,6 @@
 import axios from "axios"
 import useGetBlogs from "../../hooks/useGetBlogs"
-import { useState } from "react"
+import { useMemo, useState } from "react"
 
 
 function BlogEditDelete() {
@@ -22,17 +22,12 @@ function BlogEditDelete() {
       image: ''
   })
 
-  // 
+    const datas = useGetBlogs('https://tilav-blog-api.onrender.com/api/blogs')
 
-//   13.228.225.19
-// 18.142.128.26
-// 54.254.162.138
-
-
-    const blogs = useGetBlogs('https://tilav-blog-api.onrender.com/api/blogs')
+    const blogs = useMemo(() => datas, [datas]);
 
     // Delete blog function
-    async function deleteBlog(id) {
+    async function deleteBlog(id: string) {
         const promptValue = confirm('Rostan ham bu post-ni o\'chirmoqchimisiz?')
         if(!promptValue) return
         try {
@@ -47,7 +42,7 @@ function BlogEditDelete() {
     }
 
     // Edit Blog function
-    async function editBlog(id) {
+    async function editBlog(id: string) {
         try {
             let formData;
             if (editBlogData.image instanceof File) {
@@ -76,16 +71,16 @@ function BlogEditDelete() {
     
 
     // Handle edit blog inputs
-    function handleInput(e) {
-        const { name, value } = e.target;
-        setEditBlog((prev) => ({
-            ...prev,
-            [name]: value,
-        }));
+    function handleInput(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
+      const { name, value } = e.target;
+      setEditBlog((prev) => ({
+          ...prev,
+          [name]: value,
+      }));
     }
 
     // Handle add blog inputs
-    function handleAddInput(e) {
+    function handleAddInput(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
       const { name, value } = e.target;
         setAddBlogData((prev) => ({
             ...prev,
@@ -122,7 +117,7 @@ function BlogEditDelete() {
   return (
     <div className="bg-white px-2 flex flex-col gap-4 lg:flex-row lg:flex-wrap lg:container lg:mx-auto lg:justify-between">
       {
-        blogs?.map((blog, i) => {
+        blogs?.map((blog: {_id: string, title: string, desc: string, image: string}, i:number) => {
           return (
             <div className={`cursor-pointer border-b-2 flex flex-col pb-2 ${i === 0 ? 'gap-2 mb-4' : 'gap-4 lg:w-6/13'} ${(blogs.length % 2 === 0  && blogs.length === i + 1) ? 'lg:w-screen' : ''}`} key={i}>
               <img className={`${i === 0 ? 'w-full md:w-96 lg:block' : 'w-40 lg:w-56 lg:h-auto'} rounded-lg ${blogs.length % 2 === 0 && blogs.length === i + 1 ? 'lg:w-96' : ''}`} src={`https://tilav-blog-api.onrender.com/${blog.image}`} alt={blog.title} />
@@ -152,7 +147,7 @@ function BlogEditDelete() {
                 <input type="file" placeholder="Image edit" onChange={(e) => handleInput({ target: { name: 'image', value: e.target.files[0] } })}/>
                 <input value={editBlogData.title} className="border-2 py-1 px-2 rounded-md" name="title" type="text" placeholder="Title edit" onChange={handleInput}/>
                 <input value={editBlogData.author} className="border-2 py-1 px-2 rounded-md" name="author" type="text" placeholder="Author edit" onChange={handleInput}/>
-                <textarea cols="30" rows="10" value={editBlogData.desc} className="border-2 py-1 px-2 rounded-md" name="desc" type="text" placeholder="Desc edit" onChange={handleInput}/>
+                <textarea cols={30} rows={10} value={editBlogData.desc} className="border-2 py-1 px-2 rounded-md" name="desc" placeholder="Desc edit" onChange={handleInput}/>
                 <button type="button" className="border-2 p-1 rounded-md bg-slate-600 text-white" onClick={() => {
                     editBlog(editBlogData._id)
                     setIsEdit(false);
@@ -169,7 +164,7 @@ function BlogEditDelete() {
               <input type="file" placeholder="Image edit" onChange={(e) => handleAddInput({ target: { name: 'image', value: e.target.files[0] } })}/>
               <input value={addBlogData.title} className="border-2 py-1 px-2 rounded-md" name="title" type="text" placeholder="Title add" onChange={handleAddInput}/>
               <input value={addBlogData.author} className="border-2 py-1 px-2 rounded-md" name="author" type="text" placeholder="Author add" onChange={handleAddInput}/>
-              <textarea cols="30" rows="10" value={addBlogData.desc} className="border-2 py-1 px-2 rounded-md" name="desc" type="text" placeholder="Desc add" onChange={handleAddInput}/>
+              <textarea cols={30} rows={10} value={addBlogData.desc} className="border-2 py-1 px-2 rounded-md" name="desc" placeholder="Desc add" onChange={handleAddInput}/>
               <button type="button" className="border-2 p-1 rounded-md bg-slate-600 text-white" onClick={() => {
                   addBlog()
                   setIsAdd(false);

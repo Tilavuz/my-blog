@@ -22,11 +22,9 @@ const getBlogById = async (req, res) => {
         const id = req.params.id
         const blog = await Blog.findById(id)
 
-        if(blog) {
-            return res.json(blog)
-        }else {
-            return res.status(404).json({ msg: "Blog topilmadi" });
-        }
+        if(!blog) return res.status(404).json({ msg: "Blog topilmadi" });
+
+        return res.json(blog)
     }catch(err) {
         console.error(err);
         res.status(500).json({ msg: "Server xatosi" });

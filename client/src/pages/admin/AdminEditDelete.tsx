@@ -4,7 +4,7 @@ import { useEffect, useState } from "react"
 // Components
 function AdminEditDelete() {
 
-  const [admins, setAdmins] = useState(null)
+  const [admins, setAdmins] = useState(Array)
   const [isEdit, setEdit] = useState(false)
   const [isAddAdmin, setIsAddAdmin] = useState(false)
 
@@ -33,7 +33,7 @@ function AdminEditDelete() {
       }
   }, [])
 
-  async function deleteAdmin(id) {
+  async function deleteAdmin(id: string) {
     const promptValue = confirm('Rostan ham bu post-ni o\'chirmoqchimisiz?')
     if(!promptValue) return
     try{
@@ -73,7 +73,7 @@ function AdminEditDelete() {
     }
   }
 
-  function handleInput(e) {
+  function handleInput(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
     const { name, value } = e.target;
     setEditAdminData((prev) => ({
       ...prev,
@@ -81,7 +81,7 @@ function AdminEditDelete() {
     }));
   }
   
-  function handleAddAdminInput(e) {
+  function handleAddAdminInput(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
     const { name, value } = e.target;
     setAddAdminData((prev) => ({
       ...prev,
