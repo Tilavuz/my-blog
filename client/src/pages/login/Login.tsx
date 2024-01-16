@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useState } from "react"
+import { useState, FormEvent } from "react"
 
 function Login() {
 
@@ -13,7 +13,7 @@ function Login() {
     setLook(!look)
   }
 
-  function handleInput(e) {
+  function handleInput(e: React.ChangeEvent<HTMLInputElement>) {
     const { name, value } = e.target;
     setLoginData({
       ...loginData,
@@ -21,15 +21,15 @@ function Login() {
     });
   }
 
-  async function handleSubmit(e) {
+  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault()
 
     try{
       setLoading(true)
-      const res = await axios.post('http://localhost:3000/api/login', loginData)
+      const res = await axios.post('https://tilav-blog-api.onrender.com/api/login', loginData)
       const token = await res.data
       localStorage.setItem('token', token.token)
-      window.location = '/admin'
+      window.location.assign('/admin')
     }catch (err) {
       console.log(err);
     }finally {
@@ -39,7 +39,7 @@ function Login() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col gap-4 p-4 max-w-96 bg-bgColor2 mx-auto mt-72 rounded-lg">
+    <form onSubmit={(e) => handleSubmit(e)} className="flex flex-col gap-4 p-4 max-w-96 bg-bgColor2 mx-auto mt-72 rounded-lg">
       <input value={loginData.name} name="name" className="rounded-lg px-4 border-2 py-2" type="text" placeholder="Admin name ?" onChange={handleInput} />
       <label className="relative flex items-center">
         <input value={loginData.password} name="password" className="rounded-lg px-4 w-full border-2 py-2" type={look ? 'text' : 'password'} placeholder="Admin password ?" onChange={handleInput}/>

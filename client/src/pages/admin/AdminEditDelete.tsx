@@ -1,10 +1,21 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
 
+
+
+
+
+interface AdminData {
+  _id: string,
+  name: string;
+  password: string;
+}
+
+
 // Components
 function AdminEditDelete() {
 
-  const [admins, setAdmins] = useState(Array)
+  const [admins, setAdmins] = useState<AdminData[]>()
   const [isEdit, setEdit] = useState(false)
   const [isAddAdmin, setIsAddAdmin] = useState(false)
 
@@ -150,7 +161,7 @@ function AdminEditDelete() {
         }} className="absolute text-4xl rounded-full w-12 h-12 border-2 top-32 right-32 flex items-center justify-center">{`${isAddAdmin ? '-' : '+'}`}</button>
         <ul className="flex flex-col gap-4">
           {
-            admins?.map((admin) => {
+            admins?.map((admin: AdminData) => {
               return <li key={admin._id} className="border-2 flex justify-between max-w-96">
                 <span>{admin.name}</span>
                 <div className="flex gap-2">

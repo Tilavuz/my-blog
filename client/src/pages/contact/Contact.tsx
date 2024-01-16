@@ -1,10 +1,19 @@
 import 'react-phone-number-input/style.css';
-import { useState } from 'react';
+import { useState, SyntheticEvent, ChangeEvent } from 'react';
 import PhoneInput from 'react-phone-number-input';
 
+interface MsgData {
+  name: string,
+  message: string
+}
+
+type E164Number = string;
+
+
+
 function Contact() {
-  const [phoneNumber, setPhoneNumber] = useState('+998');
-  const [msg, setMsg] = useState({
+  const [phoneNumber, setPhoneNumber] = useState<E164Number>('+998');
+  const [msg, setMsg] = useState<MsgData>({
     name: '',
     message: ''
     
@@ -13,7 +22,7 @@ function Contact() {
 
   const allMessage = `Name: ${msg.name} %0AMobile Number: ${phoneNumber} %0AMessage: 👇👇 %0A${msg.message}`
 
-  async function getReq(e) {
+  async function getReq(e: SyntheticEvent) {
     e.preventDefault()
     try {
       setPending(true)
@@ -28,9 +37,9 @@ function Contact() {
     }finally {
       setPending(false)
     }
-}
+  }
 
-  function handleValue(e) {
+  function handleValue(e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>) {
     const { name, value } = e.target;
 
     setMsg((prevMsg) => ({
@@ -44,7 +53,19 @@ function Contact() {
       <form onSubmit={getReq} className="bg-bgColor2 max-w-2xl min-h-96 flex flex-col items-start gap-4 rounded-lg p-4">
         <div className="flex flex-wrap flex-row gap-4">
           <input name='name' required autoComplete='off' value={msg.name} onChange={handleValue} className="shadow-inner min-w-60 border-black border-2 outline-none rounded-md px-2 py-1" type="text" placeholder="Ismingiz !" />
-          <PhoneInput required autoComplete='off' name="phone" placeholder="Telefon raqamingiz !" value={phoneNumber} onChange={setPhoneNumber} defaultCountry="UZ" regions={['Asia']} className="shadow-inner border-black border-2 outline-none rounded-md min-w-60 w-6/13 px-2 py-1"/>
+          <PhoneInput
+      required
+      autoComplete='off'
+      name="phone"
+      placeholder="Telefon raqamingiz !"
+      value={phoneNumber}
+      onChange={(value: E164Number | undefined) => {
+        setPhoneNumber(value || ''); // Handle the case where value is undefined
+      }}
+      defaultCountry="UZ"
+      regions={['Asia']}
+      className="shadow-inner border-black border-2 outline-none rounded-md min-w-60 w-6/13 px-2 py-1"
+    />
         </div>
         <textarea required autoComplete='off' value={msg.message} name="message" onChange={handleValue} className="shadow-inner md:w-3/4 min-w-60 min-h-60 border-black border-2 outline-none rounded-md px-2 py-1" placeholder='Qanday maqsadda yozmoqdasiz !'></textarea>
         <button className={`bg-btnColor flex gap-2 text-bgColor2 py-2 px-6 items-center ${isPending ? 'pr-2' : ''} rounded-md`} type='submit'>

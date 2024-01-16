@@ -2,11 +2,18 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
+interface BlogData {
+  _id: string;
+  title: string;
+  author: string;
+  desc: string;
+  image: string; 
+}
 
 function SingleBlog() {
 
     const { id } = useParams()
-    const [blog, setBlog] = useState(null)
+    const [blog, setBlog] = useState<BlogData>()
 
     useEffect(() => {
         axios.get(`https://tilav-blog-api.onrender.com/api/blog/${id}`)
@@ -16,7 +23,7 @@ function SingleBlog() {
             .catch(err => {
                 console.log('Malumot topilmadi', err);
             })
-    }, [])
+    }, [id])
 
   return (
     <div className='flex flex-col gap-4 py-20 pb-24 px-2 lg:container lg:mx-auto lg:py-32'>
